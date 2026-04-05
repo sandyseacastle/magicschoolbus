@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3456:3456"
+    volumes:
+      - db-data:/app/data
+      - uploads:/app/uploads
+    environment:
+      - DATABASE_URL=file:./data/dev.db
+      - NODE_ENV=production
+      - PORT=3456
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  uploads:

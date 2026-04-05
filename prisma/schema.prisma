@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Teacher {
+  id           String           @id @default(cuid())
+  username     String           @unique
+  passwordHash String
+  createdAt    DateTime         @default(now())
+  excursions   Excursion[]
+  sessions     TeacherSession[]
+}
+
+model TeacherSession {
+  id        String   @id @default(cuid())
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([teacherId])
+}
+
+model Excursion {
+  id        String   @id @default(cuid())
+  title     String
+  teacherId String?
+  teacher   Teacher? @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  scenes    Scene[]
+  sessions  Session[]
+
+  @@index([teacherId])
+}
+
+model Scene {
+  id          String    @id @default(cuid())
+  excursionId String
+  excursion   Excursion @relation(fields: [excursionId], references: [id], onDelete: Cascade)
+  title       String?
+  description String?
+  filename    String
+  thumbFilename String?
+  sourceUrl   String?
+  sortOrder   Int
+  createdAt   DateTime @default(now())
+
+  @@index([excursionId])
+}
+
+model Session {
+  id           String    @id @default(cuid())
+  excursionId  String
+  excursion    Excursion @relation(fields: [excursionId], references: [id], onDelete: Cascade)
+  pin          String    @unique
+  isActive     Boolean   @default(true)
+  currentScene Int       @default(0)
+  createdAt    DateTime  @default(now())
+  expiresAt    DateTime
+
+  @@index([pin])
+  @@index([excursionId])
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": "./dist",
+    "jsx": "react-jsx"
+  },
+  "include": ["server.ts", "src/lib/socket.ts", "src/lib/db.ts", "src/lib/pin.ts", "src/types/index.ts"]
+}

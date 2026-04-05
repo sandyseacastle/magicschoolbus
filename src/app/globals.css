@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fef9ef;
+  --foreground: #1e1b4b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-fredoka);
+  --font-mono: var(--font-geist-mono);
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-light: #dbeafe;
+  --color-accent: #f97316;
+  --color-accent-hover: #ea580c;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fef3c7;
+  --color-border: #334155;
+  --color-border-light: #cbd5e1;
+  --color-muted: #64748b;
+  --color-hero-from: #2563eb;
+  --color-hero-via: #3b82f6;
+  --color-hero-to: #93c5fd;
+  --color-fun-green: #22c55e;
+  --color-fun-pink: #ec4899;
+  --color-fun-yellow: #eab308;
+  --color-fun-sky: #38bdf8;
+  --color-fun-purple: #a855f7;
+  --color-fun-orange: #f97316;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Sky gradient for hero sections */
+.hero-gradient {
+  background: linear-gradient(180deg, #1d4ed8 0%, #3b82f6 25%, #60a5fa 55%, #93c5fd 80%, #bfdbfe 100%);
+}
+
+/* Rainbow accent bar */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.fun-gradient {
+  background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #a855f7);
+  background-size: 300% 100%;
+  animation: gradient-shift 4s linear infinite;
+}
+
+/* Floating animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-18px) rotate(5deg); }
+  66% { transform: translateY(-8px) rotate(-3deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(12px) translateY(-6px); }
+  50% { transform: translateX(-6px) translateY(-12px); }
+  75% { transform: translateX(-12px) translateY(6px); }
+}
+
+.float-shape {
+  position: absolute;
+  animation: float 5s ease-in-out infinite;
+}
+
+.float-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  animation: float 6s ease-in-out infinite;
+}
+
+.twinkle-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fbbf24;
+  box-shadow: 0 0 8px 2px rgba(251, 191, 36, 0.5);
+  animation: twinkle 2.5s ease-in-out infinite;
+}
+
+.drift-cloud {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.25);
+  animation: drift 14s ease-in-out infinite;
+}
+
+/* 3D push button */
+.btn-3d {
+  border: 3px solid #1e293b;
+  border-bottom-width: 6px;
+  border-radius: 16px;
+  transition: all 0.1s ease;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-3d:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+.btn-3d:active:not(:disabled) {
+  border-bottom-width: 3px;
+  transform: translateY(3px);
+}
+.btn-3d:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Sticker card with offset shadow */
+.sticker-card {
+  border: 3px solid #334155;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 4px 4px 0 #334155;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sticker-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #334155;
+}
+
+/* Card hover with playful bounce */
+.card-hover {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: 4px 6px 0 rgba(51, 65, 85, 0.3);
+}
+
+/* PIN input glow — golden */
+.pin-input:focus {
+  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.5), 0 0 20px rgba(234, 179, 8, 0.25);
+}
+
+/* VR viewer full-screen override */
+.vr-fullscreen {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 50;
+}
+
+/* Rainbow top bar */
+.rainbow-bar {
+  height: 6px;
+  background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #a855f7);
+}
+
+/* Badge pill styles */
+.badge-fun {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Dotted background pattern */
+.dotted-bg {
+  background-image: radial-gradient(circle, #d6cfc0 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
