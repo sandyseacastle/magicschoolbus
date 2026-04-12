@@ -43,6 +43,9 @@ Thumbs.db
 *.swp
 *.swo
 
+# TLS certs (auto-generated)
+certs/
+
 # Misc
 .vercel
 .turbo

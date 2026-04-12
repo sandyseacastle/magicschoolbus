@@ -36,8 +36,8 @@ COPY --from=builder /app/src/generated ./src/generated
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./
 
-# Create directories for runtime data
-RUN mkdir -p uploads data
+# Create directories for runtime data and TLS certs
+RUN mkdir -p uploads data certs
 
 # Run migrations and start the server
 ENV DATABASE_URL="file:./data/dev.db"

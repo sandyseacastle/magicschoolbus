@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VR Excursions
 
-## Getting Started
+A classroom VR tour app. Teachers upload 360° images, host sessions with a PIN code, and students join on mobile devices for synchronized VR viewing.
 
-First, run the development server:
+## Running with Docker (recommended)
+
+```bash
+docker compose up
+```
+
+The app will be available at http://localhost:3456.
+
+Data (database and uploaded images) is persisted in Docker volumes across restarts.
+
+## Running without Docker
+
+**Requirements:** Node.js 22+
+
+### First-time setup
+
+```bash
+npm install
+echo 'DATABASE_URL="file:./dev.db"' > .env
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App runs at http://localhost:3456 with hot reload.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## How it works
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Teacher creates an excursion and uploads 360° images (or imports from Wikimedia)
+2. Teacher starts a session — a 6-digit PIN is generated
+3. Students navigate to the app on their phones and enter the PIN
+4. Teacher controls which scene students see in real time

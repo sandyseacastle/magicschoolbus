@@ -121,6 +121,22 @@ export function AFrameViewer({ imageUrl, sceneTitle, sceneDescription }: AFrameV
         </div>
       )}
 
+      {/* VR button — A-Frame's built-in button only shows when WebXR detects a device,
+          so on Android Chrome without a headset it stays hidden. This button calls
+          enterVR() directly, which works for both Cardboard and magic-window mode. */}
+      {!imageLoading && (
+        <button
+          onClick={() => {
+            const scene = containerRef.current?.querySelector("a-scene") as (HTMLElement & { enterVR?: () => void }) | null;
+            scene?.enterVR?.();
+          }}
+          className="fixed bottom-4 right-4 z-[60] bg-black/60 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors font-bold text-sm"
+          title="Enter VR"
+        >
+          VR
+        </button>
+      )}
+
       {/* Scene info overlay */}
       {(sceneTitle || sceneDescription) && (
         <>
@@ -135,7 +151,7 @@ export function AFrameViewer({ imageUrl, sceneTitle, sceneDescription }: AFrameV
           {!showInfo && (
             <button
               onClick={() => setShowInfo(true)}
-              className="fixed bottom-20 left-4 z-[60] bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+              className="fixed bottom-20 right-4 z-[60] bg-black/50 hover:bg-black/70 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"
               title="Show scene info"
             >
               <span className="text-lg">&#8505;</span>
